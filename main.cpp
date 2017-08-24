@@ -1,3 +1,13 @@
+/* CSC300 - Mike Benton
+   Requirements: Your program should start each round by asking the first question stored 
+   at the top (root) of the tree. Depending on the answer, it moves 
+   left or right until it reaches a leaf node. Once a leaf node is reached, 
+   it must make a guess. If the guess is not correct, it asks the user 
+   for the name of a new character and a yes or no question that distinguishes 
+   the wrong guess from the new character. It should then add a node to the 
+   tree with the new question and the new character.
+*/
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -21,7 +31,6 @@ public:
 
 }; //END CLASS
 
-
 //-----CLASS FUNCTIONS--------------------
 CharacterTree::CharacterTree() //CONSTRUCTOR
 {
@@ -44,7 +53,7 @@ void CharacterTree::insert(string s, int index)
 		cout << "        vectorSize is "  << vectorTree.size() << endl;  
 	}
 	vectorTree[index] = s;
-	cout << "index " << index << " =" << vectorTree.at(index)<< endl;                               
+	cout << "(index " << index << " =" << vectorTree.at(index) << ")" << endl;                               
 }
 
 string CharacterTree::retrieve(int index)
@@ -77,7 +86,7 @@ int main( int argc, char **argv)
 	
 	CharacterTree myTree = CharacterTree(); //INITIALZE TREE OBJECT FOR GAME
 	string answer = "y";                    //INITIALIZE THE ANSWER TO ENTER WHILE LOOP
-	string yesOrNo;                         //STRING TO HOLD (y/n) RESPONSE IN GAME
+	string yesOrNo;                         //STRING TO HOLD YES OR NO RESPONSE IN GAME
 	string characterName;                   //STRING TO HOLD THE NAME OF CHARACTER
 	string characterQuestion;               //STRING TO HOLD DISTINGUISHING QUESTION
 
@@ -85,12 +94,15 @@ int main( int argc, char **argv)
 	{	
 		int treeIndex = 0; //INITIALIZE TO ZERO TO START AT ROOT
 
-		cout << "Are you thinking of your favorite character? (y/n) ";
+		cout << endl;
+		cout << "Are you thinking of your favorite superhero character? (Enter y or n) ";
 		getline (cin,answer);
+		cout << endl;
 
+		//CHECK USER INPUT
 		while( (answer != "y") && (answer != "n")  ){
 			cout << "Please enter y or n" << endl;
-			cout << "Are you thinking of your favorite character? (y/n) ";
+			cout << "Are you thinking of your favorite superhero character? (Enter y or n) ";
 			getline (cin,answer);
 		}
 		
@@ -104,11 +116,11 @@ int main( int argc, char **argv)
 		while(myTree.retrieve( (2*treeIndex) + 1) != "" )
 		{
 			//ASK QUESTION STORED IN VECTOR INDEX
-			cout << myTree.retrieve(treeIndex) << " (y/n) ";
+			cout << myTree.retrieve(treeIndex) << " (Enter y or n) ";
 			getline (cin,yesOrNo);
 
 			while( (yesOrNo != "y") && (yesOrNo != "n") ){
-				cout << "Please enter again: " << myTree.retrieve(treeIndex) << " (y/n) ";
+				cout << "Please enter again: " << myTree.retrieve(treeIndex) << " (Enter y or n) ";
 				getline (cin,yesOrNo);
 			}
 
@@ -124,17 +136,17 @@ int main( int argc, char **argv)
 		}
 		
 		//MAKE A GUESS USING THE CURRENT NODE
-		cout << "Is it " << myTree.retrieve(treeIndex) << "? (y/n)";
+		cout << "Is it " << myTree.retrieve(treeIndex) << "? (Enter y or n)";
 		getline (cin,yesOrNo);  
 
 		while( (yesOrNo != "y") && (yesOrNo != "n") ){
-				cout << "Please enter again: Is it " << myTree.retrieve(treeIndex) << " (y/n) ";
+				cout << "Please enter again: Is it " << myTree.retrieve(treeIndex) << " (Enter y or n) ";
 				getline (cin,yesOrNo);
 		}  
 
 		if(yesOrNo == "y")
 		{
-			cout << "I rule!" << endl << endl;  //TELL THE USER YOU RULE
+			cout << "I got it!" << endl << endl;  //TELL USER CORRECT GUESS 
 			continue;                           //MOVE TO NEXT ITERATION OF LOOP
 		}
 
@@ -143,7 +155,8 @@ int main( int argc, char **argv)
 		getline (cin, characterName);	
 
 		//PROMPT USER FOR QUESTION THAT DISTINGUISHES NEW CHARACTER
-		cout << "What question would distinguish " << characterName << " from " << myTree.retrieve(treeIndex) << "? ";
+		cout << "What yes or no question would distinguish " << characterName << " from " << myTree.retrieve(treeIndex) << "? ";
+		cout << endl;
 		getline (cin, characterQuestion);
 
 		//NEED A TEMPORARY VARIABLE TO HOLD THE CURRENT NODE 
@@ -154,12 +167,12 @@ int main( int argc, char **argv)
 		myTree.insert(characterQuestion, treeIndex);
 
 		//PROMPT USER FOR WHAT ANSWER TO QUESTION WOULD BE FOR THE CURRENT CHARACTER
-		cout << "If the character were " << characterName << ", what would the answer be? (y/n)";
+		cout << "If the character were " << characterName << ", what would the answer be? (Enter y or n)";
 		getline (cin,yesOrNo); 
 		cout << endl;  
 
 		while((yesOrNo != "y") && (yesOrNo != "n") ){
-				cout << "Please enter again: what would the answer be? (y/n) ";
+				cout << "Please enter again: what would the answer be? (Enter y or n) ";
 				getline (cin,yesOrNo);
 			}
 
@@ -184,5 +197,6 @@ int main( int argc, char **argv)
 	return 0;
 
 }
+
 
 
