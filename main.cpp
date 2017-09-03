@@ -19,11 +19,8 @@ class CharacterTree
 {
 
 private:
-
 	vector<string> vectorTree; 
-
 public:
-
 	CharacterTree();  //CONSTRUCTOR
 	void insert(string s, int index);
 	string retrieve(int index);
@@ -80,10 +77,8 @@ void CharacterTree::resizeTree(int index)
 	}
 }
 
-
 int main( int argc, char **argv)
-{
-	
+{	
 	CharacterTree myTree = CharacterTree(); //INITIALZE TREE OBJECT FOR GAME
 	string answer = "y";                    //INITIALIZE THE ANSWER TO ENTER WHILE LOOP
 	string yesOrNo;                         //STRING TO HOLD YES OR NO RESPONSE IN GAME
